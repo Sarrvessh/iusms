@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Publications</title>
+  <link rel="stylesheet" href="editPublication.css" />
+</head>
+
+<body>
+  <h1>Edit Publications</h1>
+
+  <div>
+    <label for="publicationDropdown">Select Publication ID:</label>
+    <select id="publicationDropdown">
+    </select>
+
+    <button onclick="displayPublicationDetails()">Select</button>
+  </div>
+  <div id="publicationDetails"></div>
+
+  <form id="editPublicationForm" enctype="multipart/form-data">
+    <h2>Edit Publication</h2>
+
+    <input type="hidden" id="publicationIdInput" name="publicationIdInput">
+    <input type="hidden" id="facultyIdInput" name="facultyIdInput">
+
+    <label for="titleInput">Title:</label>
+    <input type="text" id="titleInput" name="titleInput">
+
+    <label for="chapterInput">Chapter:</label>
+    <input type="text" id="chapterInput" name="chapterInput">
+
+    <label for="publicationDateInput">Publication Date:</label>
+    <input type="text" id="publicationDateInput" name="publicationDateInput">
+
+    <label for="volumeInput">Volume:</label>
+    <input type="text" id="volumeInput" name="volumeInput">
+
+    <label for="indexTypeInput">Index Type:</label>
+    <select id="indexTypeInput" name="indexTypeInput" required>
+      <option value="none">Select an option</option>
+      <option value="ieee">IEEE</option>
+      <option value="ugc">UGC</option>
+      <option value="scopus">Scopus</option>
+      <option value="others">Others</option>
+    </select>
+
+    <label for="filePathInput">File Path:</label>
+    <input type="file" id="filePathInput" name="filePathInput">
+
+    <input type="hidden" id="publicationTypeInput" name="publicationTypeInput">
+
+
+    <button type="button" onclick="submitEditPublication()">Submit Edit</button>
+  </form>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Mock user data (replace this with actual user data)
+      const userData = {
+        facultyID: 'exampleUser',
+        // Add other user data as needed
+      };
+
+      const publicationDropdown = document.getElementById("publicationDropdown");
+      const publicationDetailsDiv = document.getElementById("publicationDetails");
+
+      // Fetch all publication IDs for the current user
+      fetch(`/api/publication_records`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Populate the dropdown with publication IDs
+          data.forEach((publication) => {
+            const option = document.createElement("option");
+            option.value = publication.PublicationID;
+            option.textContent = `Publication ID: ${publication.PublicationID}`;
+            publicationDropdown.appendChild(option);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    });
+
+    document.getElementById("publicationTypeInput").addEventListener("change", function () {
+      const publicationType = this.value;
+      const volumeInput = document.getElementById("volumeInput");
+
+      // Disable the Volume input if the Publication Type is "Journal"
+      if (publicationType.toLowerCase() === "journals") {
+        volumeInput.setAttribute("disabled", "disabled");
+      } else {
+        volumeInput.removeAttribute("disabled");
+      }
+    });
+
+    function displayPublicationDetails() {
+      const selectedPublicationId = document.getElementById("publicationDropdown").value;
+
+      if (!selectedPublicationId) {
+        document.getElementById("publicationDetails").innerHTML = '<p>Select a publication ID to view details.</p>';
+        return;
+      }
+
+      fetch(`/editPublications/${selectedPublicationId}`)
+        .then((response) => response.json())
+        .then((publication) => {
+          document.getElementById("publicationIdInput").value = publication.PublicationID;
+          document.getElementById("facultyIdInput").value = publication.FacultyID;
+          document.getElementById("titleInput").value = publication.Title;
+          document.getElementById("chapterInput").value = publication.Chapter;
+          document.getElementById("publicationDateInput").value = publication.PublicationDate;
+          document.getElementById("volumeInput").value = publication.Volume;
+          document.getElementById("indexTypeInput").value = publication.IndexType;
+          document.getElementById("publicationTypeInput").value = publication.PublicationType;
+
+          const detailsHTML = `
+            <p>Publication ID: ${publication.PublicationID}</p>
+            <p>Faculty ID: ${publication.FacultyID}</p>
+            <p>Title: ${publication.Title}</p>
+            <p>Chapter: ${publication.Chapter}</p>
+            <p>Publication Date: ${publication.PublicationDate}</p>
+            <p>Volume: ${publication.Volume}</p>
+            <p>Index Type: ${publication.IndexType}</p>
+            <p>File Path: ${publication.FilePath}</p>
+            <p>Publication Type: ${publication.PublicationType}</p>
+            <!-- Add other publication details as needed -->
+          `;
+          document.getElementById("publicationDetails").innerHTML = detailsHTML;
+        })
+        .catch((error) => console.error("Error fetching publication details:", error));
+    }
+
+    function submitEditPublication() {
+  const publicationId = document.getElementById("publicationIdInput").value;
+
+  const formData = new FormData(document.getElementById("editPublicationForm"));
+
+  const publicationDateInput = formData.get("publicationDateInput");
+  const formattedDate = new Date(publicationDateInput).toISOString().split('T')[0];
+
+  formData.set("publicationDateInput", formattedDate);
+
+  for (var key of formData.entries()) {
+    console.log(key[0] + ', ' + key[1]);
+  }
+
+  fetch(`/api/editPublications/${publicationId}`, {
+    method: "PUT",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      alert(result.message);
+    })
+    .catch((error) => console.error("Error submitting edit:", error));
+}
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance Records</title>
+    <link rel="stylesheet" href="viewRecords.css" />
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+</head>
+
+<body>
+    <div id="sidePanel">
+        <h2>Filter and Sort</h2>
+        <form id="filterForm">
+            <label for="fromDate">From Date:</label>
+            <input type="date" id="fromDate" name="fromDate" />
+
+            <label for="toDate">To Date:</label>
+            <input type="date" id="toDate" name="toDate" />
+
+            <label for="eventTypes">Event Type:</label>
+
+            <div>
+                <input type="checkbox" id="Conference" name="eventTypes" value="Conference" />
+                <label for="Conference">Conference</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" id="FDP" name="eventTypes" value="Faculty Development Program" />
+                <label for="FDP">FDP</label>
+            </div>
+            <div>
+                <input type="checkbox" id="Workshop" name="eventTypes" value="Workshop" />
+                <label for="Workshop">Workshop</label>
+            </div>
+            <div>
+                <input type="checkbox" id="Seminar" name="eventTypes" value="Seminar" />
+                <label for="Seminar">Seminar</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" id="Lecture" name="eventTypes" value="Lecture" />
+                <label for="Lecture">Lecture</label>
+            </div>
+            
+
+            <label for="sortByDate">Sort By Date:</label>
+            <select id="sortByDate" name="sortByDate">
+                <option value="none">Select an option</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+
+            <button type="button" onclick="applyFilters()">Apply</button>
+        </form>
+    </div>
+
+    <h1>Attendance Records</h1>
+    <table id="recordTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Professor ID</th>
+                <th>Event Type</th>
+                <th>Event Date</th>
+                <th>Event Name</th>
+                <th>Location</th>
+                <th>Organizer</th>
+                <th>Duration (minutes)</th>
+                <th>Feedback</th>
+                <th>Proof File Path</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <!-- Add this button where you want it in your HTML file, e.g., after the table -->
+    <button onclick="downloadTableAsPDF()">Download PDF</button>
+
+    <script src="/viewRecords" type="text/javascript"></script>
+
+    <footer>
+        <p>Created with ❤️ By Us :)</p>
+    </footer>
+</body>
+
+</html>
+</form>
+</div>
+</body>
+
+</html>

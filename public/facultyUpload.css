@@ -1,0 +1,161 @@
+body, h1, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f6f5f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    background-image: url('loginf.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 20px 0;
+    color: #333;
+}
+
+form.attendance-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 40px;
+    max-width: 600px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px -10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #6c6556;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin: 10px 0;
+}
+
+form input[type="submit"]:hover {
+    background-color: #faefd9;
+    color: #6c6556;
+}
+
+.form-group input[type="number"]{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    margin: 5px -10px;
+    align-items: center;
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+}
+
+.container-5 button{
+    background-color: #6c6556;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.container-5 button:hover{
+    background-color: #faefd9;
+    color: #6c6556;
+}
+
+.container-5{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+.form-group textarea{
+    resize: none;
+}
+
+.upload-file input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.upload-file label {
+    background-color: #4CAF50; /* Set background color */
+    color: white; /* Set text color */
+    padding: 10px 15px; /* Add padding to the label */
+    cursor: pointer; /* Change cursor style to pointer */
+    border-radius: 5px; /* Add border radius for a rounded look */
+}
+
+.upload-file label:hover {
+    background-color: #45a049; /* Change background color on hover */
+}
